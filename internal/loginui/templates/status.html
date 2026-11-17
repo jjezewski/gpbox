@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="3">
+<title>gpbox</title>
+</head>
+<body>
+<h1>gpbox</h1>
+<table>
+{{range .}}<tr><th align="left">{{.Label}}</th><td>{{or .Value "-"}}</td></tr>
+{{end}}</table>
+<p>This page reloads every 3 seconds and opens the sign-in window when a login is needed.</p>
+</body>
+</html>

@@ -1,0 +1,28 @@
+# Values come from your shell or from a .env file next to this file:
+# GP_PORTAL=vpn.example.com
+# GP_FORWARDS=10000:10.0.0.10:3389,10001:10.0.0.20:22
+# GP_LOGIN_PASSWORD=choose-a-password
+# Every port in GP_FORWARDS also needs a line under "ports".
+# Check README.md for more details.
+
+services:
+  gpbox:
+    image: ghcr.io/jjezewski/gpbox:latest
+    container_name: gpbox
+    restart: unless-stopped
+    stop_grace_period: 15s
+    environment:
+      GP_PORTAL: ${GP_PORTAL:?set GP_PORTAL}
+      GP_FORWARDS: ${GP_FORWARDS:-}
+      GP_LOGIN_PASSWORD: ${GP_LOGIN_PASSWORD:-}
+      GP_MODE: ${GP_MODE:-gateway}
+      SESSION_KEY: ${SESSION_KEY:-1}
+    ports:
+      - "127.0.0.1:6080:6080"
+      - "127.0.0.1:1080:1080"
+      - "127.0.0.1:10000:10000"
+    volumes:
+      - gpbox-data:/data
+
+volumes:
+  gpbox-data:
